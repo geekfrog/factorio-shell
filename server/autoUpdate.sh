@@ -76,5 +76,14 @@ echo "$(curTime) 自动更新已启动！"
 while true
 do
     checkVersion
+	if [ ps -ef | grep "/factorio --start-server-load-latest" | grep -v 'grep' ]; then
+	else
+		echo "$(curTime) 检测到游戏未运行，尝试运行游戏！"
+		screen -x -S $screen_name -p 0 -X stuff "cd /mnt"
+		screen -x -S $screen_name -p 0 -X stuff $'\n'
+		screen -x -S $screen_name -p 0 -X stuff "./run1.sh"
+		screen -x -S $screen_name -p 0 -X stuff $'\n'
+		echo "$(curTime) 游戏启动成功！"
+	fi
 	sleep 10m
 done

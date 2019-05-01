@@ -4,6 +4,7 @@
 我的系统是centos7 装了screen (yum install screen)
 
 游戏本体在 /mnt/factorio 文件夹
+
 存档配置在 /mnt/factorio-1-0.17 中
 
 软连接将factorio中的bin/x64/factorio、data/base和data/core映射到/mnt/factorio-1-0.17文件夹

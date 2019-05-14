@@ -1,5 +1,5 @@
 # factorio-shell
-自己用的异星工厂脚本
+自己用的异星工厂脚本(支持游戏更新，崩溃重启)
 
 我的系统是centos7 装了screen (yum install screen)
 

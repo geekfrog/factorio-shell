@@ -10,6 +10,7 @@
 #########################################################
 
 screen_name="game"
+shell_name="run1.sh"
 function curTime(){
 	echo "[`date "+%Y-%m-%d %H:%M:%S"`]"
 }
@@ -17,7 +18,7 @@ function updateGame(){
 	echo "$(curTime) 开始更新 ${newVer} 版本..."
 	echo "$(curTime) 正在关闭游戏..."
 	screen -S $screen_name -X -p 0 stuff $'\003'
-    while ps -ef | grep "/factorio --start-server-load-latest" | grep -v 'grep'; do
+    while ps -ef | grep "/mnt/factorio-1-0.17/bin/x64//factorio --start-server-load-latest" | grep -v 'grep'; do
 	   echo "$(curTime) 等待游戏关闭..."
        sleep 5s
        continue
@@ -29,7 +30,7 @@ function updateGame(){
 	echo "$(curTime) 启动游戏中..."
 	screen -x -S $screen_name -p 0 -X stuff "cd /mnt"
 	screen -x -S $screen_name -p 0 -X stuff $'\n'
-	screen -x -S $screen_name -p 0 -X stuff "./run1.sh"
+	screen -x -S $screen_name -p 0 -X stuff "./${shell_name}"
 	screen -x -S $screen_name -p 0 -X stuff $'\n'
 	echo "$(curTime) 游戏启动成功！"
 	echo ${newVer} > ver.txt
@@ -76,12 +77,13 @@ echo "$(curTime) 自动更新已启动！"
 while true
 do
     checkVersion
-	if [ ps -ef | grep "/factorio --start-server-load-latest" | grep -v 'grep' ]; then
+	if [ "`ps -ef | grep "/mnt/factorio-1-0.17/bin/x64//factorio --start-server-load-latest" | grep -v 'grep'`" ]; then
+		echo "$(curTime) 游戏运行中..."
 	else
 		echo "$(curTime) 检测到游戏未运行，尝试运行游戏！"
 		screen -x -S $screen_name -p 0 -X stuff "cd /mnt"
 		screen -x -S $screen_name -p 0 -X stuff $'\n'
-		screen -x -S $screen_name -p 0 -X stuff "./run1.sh"
+		screen -x -S $screen_name -p 0 -X stuff "./${shell_name}"
 		screen -x -S $screen_name -p 0 -X stuff $'\n'
 		echo "$(curTime) 游戏启动成功！"
 	fi
